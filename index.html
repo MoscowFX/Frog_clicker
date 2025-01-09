@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Frog Clicker</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #98fb98; /* Light green */
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        #counter {
+            font-size: 2em;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .frog-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        #frog {
+            width: 300px;
+            height: auto;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div id="counter">0</div>
+    <div class="frog-container">
+        <img id="frog" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Green_frog_345.jpg/640px-Green_frog_345.jpg" alt="Frog">
+    </div>
+    <script>
+        const counter = document.getElementById('counter');
+        const frog = document.getElementById('frog');
+
+        let count = 0;
+
+        // Initialize Telegram Web App
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Expand to fill the entire screen
+
+        frog.addEventListener('click', () => {
+            count++;
+            counter.textContent = count;
+        });
+
+        // Optional: Send data back to the bot
+        tg.onEvent('mainButtonClicked', () => {
+            tg.sendData(JSON.stringify({ clicks: count }));
+        });
+
+        tg.MainButton.setText('Send Click Count');
+        tg.MainButton.show();
+    </script>
+</body>
+</html>
