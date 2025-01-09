@@ -17,20 +17,17 @@
             height: 100%;
             font-family: Arial, sans-serif;
         }
-
         #counter {
             font-size: 2em;
             margin-top: 20px;
             color: #333;
         }
-
         .frog-container {
             display: flex;
             align-items: center;
             justify-content: center;
             flex-grow: 1;
         }
-
         #frog {
             width: 300px;
             height: auto;
@@ -45,27 +42,27 @@
         <img id="frog" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Green_frog_345.jpg/640px-Green_frog_345.jpg" alt="Frog">
     </div>
     <script>
-        const counter = document.getElementById('counter');
-        const frog = document.getElementById('frog');
-
-        let count = 0;
-
         // Initialize Telegram Web App
         const tg = window.Telegram.WebApp;
-        tg.expand(); // Expand to fill the entire screen
+        tg.expand(); // Make the app full-screen
+
+        // Counter logic
+        const counter = document.getElementById('counter');
+        const frog = document.getElementById('frog');
+        let count = 0;
 
         frog.addEventListener('click', () => {
             count++;
             counter.textContent = count;
         });
 
-        // Optional: Send data back to the bot
-        tg.onEvent('mainButtonClicked', () => {
-            tg.sendData(JSON.stringify({ clicks: count }));
-        });
-
+        // Send data to the bot via main button
         tg.MainButton.setText('Send Click Count');
         tg.MainButton.show();
+        tg.onEvent('mainButtonClicked', () => {
+            tg.sendData(JSON.stringify({ clicks: count })); // Send data back to the bot
+        });
     </script>
 </body>
 </html>
+
